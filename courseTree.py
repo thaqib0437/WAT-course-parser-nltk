@@ -17,12 +17,24 @@ class parseTree(object):
             print("Parsing not possible for specified grammar")
         return TREES
 
+## A-> ATOM (Single requirment)
+## BG -> Bracket Group
+## B -> Bracket
+## C -> Course
+## I -> Infix operator
+## Prefix operator
+
 grammar = nltk.CFG.fromstring("""
-    S -> C I C | P C C
+    S -> BG | A | BG A | A BG
     
+    BG -> B A B
+    B -> "("|")"
+
+    A -> C I C | P C C | I C | C I
+
     C -> "math145"|"math147"|"cs135"
     I -> "or"|"and"
-    P -> "one-of"|"all of"
+    P -> "one-of"|"all-of"
 """)
 sentence = input("Sentence: ").split()
 
