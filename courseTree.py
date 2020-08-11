@@ -25,16 +25,16 @@ class parseTree(object):
 ## Prefix operator
 
 grammar = nltk.CFG.fromstring("""
-    S -> BG | A | BG A | A BG | BG I BG | P BG BG | BG COM BG | A I BG | P A BG    
+    S -> BG | A | BG A | A BG | BG I BG | P BG BG | BG COM BG | A I BG | P A BG 
     BG -> B A B
     B -> "("|")"
 
-    A -> CG I CG | P CG CG | I CG | CG I | P CG I CG | CG
+    A -> CG I CG | P CG CG | I CG | CG I | P CG I CG | CG | P CG 
+    CG -> C COM N | C COM N COM N | C COM N COM N COM N | C COM N COM N COM N COM N | C COM N COM N COM N COM N COM N COM N | C COM N COM N COM N COM N COM N COM N COM N|  C | N 
+    COM -> "," 
+    C -> "math145"|"math147"|"cs135"|"pmath345" |"cs136" | "math135"
 
-    CG -> C COM N | C COM N COM N | C COM N COM N COM N | C | N
-    COM -> ","
-    C -> "math145"|"math147"|"cs135"|"pmath345" 
-    N -> "135" | "145" | "147" | "101" | "345" | "346" | "347"
+    N -> "135" | "145" | "147" | "101" | "345" | "346" | "347" | "146" | "136" | "138"  
     I -> "or"|"and"|"/"
     P -> "one-of"|"all-of"
 """)
@@ -42,6 +42,8 @@ sentence = input("Sentence: ").split()
 
 
 # Real EX: (PMATH345 and 346) or 347
+# Real EX2: (One of CS 136, 138, 146), MATH 135
+# Real EX3: (One of MATH 118, 119, 128, 138, 148) and (One of MATH 114, 115, 225/126, 235, 245);
 
 grammerString = """
 S -> ROOT
